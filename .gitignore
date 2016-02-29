@@ -1,4 +1,5 @@
 .idea
-packer_cache
-builds/*
-!builds/.gitkeep
+/**/.vagrant
+/**/packer_cache
+/**/builds
+/**/*.box

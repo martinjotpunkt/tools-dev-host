@@ -5,7 +5,7 @@
         "password" : "password",
         "iso_url" : "http://releases.ubuntu.com/14.04/ubuntu-14.04.3-server-amd64.iso",
         "iso_checksum" : "9e5fecc94b3925bededed0fdca1bd417",
-        "preseed" : "ubuntu-14.04-64-preseed.cfg",
+        "preseed" : "preseed.cfg",
         "disksize" : "10000"
     },
     "builders" : [
@@ -18,13 +18,13 @@
             "iso_url" : "{{user `iso_url`}}",
             "iso_checksum" : "{{user `iso_checksum`}}",
             "iso_checksum_type" : "md5",
-            "http_directory" : "preseeds",
+            "http_directory" : "share",
             "http_port_min" : 9001,
             "http_port_max" : 9001,
             "ssh_username" : "{{user `username` }}",
             "ssh_password" : "{{user `password` }}",
             "ssh_timeout" : "20m",
-            "output_directory" : "builds",
+            "output_directory" : "builds/{{user `hostname`}}",
             "vboxmanage" : [
                 [
                     "modifyvm",
@@ -68,9 +68,13 @@
         }
     ],
     "provisioners" : [
-
     ],
     "post-processors" : [
-        "vagrant"
+        [
+            {
+                "type" : "vagrant",
+                "output" : "{{.BuildName}}_{{.Provider}}.box"
+            }
+        ]
     ]
 }

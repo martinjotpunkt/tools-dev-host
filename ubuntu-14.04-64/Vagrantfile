@@ -1,0 +1,54 @@
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  # Parameters
+  cfg_name     = 'dev.local'
+  cfg_uid      = 'dev'
+  cfg_passwd   = 'secret'
+  cfg_ip       = '192.168.1.15'
+  cfg_url      = 'dev.local'
+  cfg_mailname = 'dev.local'
+
+
+  # Vagrant configuration
+  config.vm.box = "file://ubuntu-14.04.3-server-amd64_virtualbox.box"
+  config.vm.network :private_network, ip: cfg_ip
+  config.vm.network "forwarded_port", guest: 22, host: 1129
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--memory", 2048]
+  end
+
+
+  #### CUSTOM STUFF
+  config.vm.synced_folder "../../../../project", "/v_project_share"
+  config.vm.host_name = cfg_name
+  config.vm.provider "virtualbox" do |vb|
+    vb.customize ["modifyvm", :id, "--name", cfg_url]
+  end
+
+  config.vm.provision :chef_solo do |chef|
+    # Chef configuration
+    chef.json = {
+      :ip              => cfg_ip,
+      :hostname        => cfg_name,
+      :mailname        => cfg_mailname,
+      :url             => cfg_url,
+      :uid             => cfg_uid,
+      :ssh_pw          => cfg_passwd,
+      :mysql_root_pw   => 'root',
+      :project_db      => 'project',
+      :project_db_user => 'user',
+      :project_db_pw   => 'login'
+    }
+    chef.log_level = :debug
+
+    # Cookbooks
+    chef.cookbooks_path = "chef/cookbooks"
+
+    # Recipes
+    chef.add_recipe "main"
+    chef.add_recipe "user"
+
+  end
+end
