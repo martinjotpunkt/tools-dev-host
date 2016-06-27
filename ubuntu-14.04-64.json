@@ -2,9 +2,9 @@
     "variables" : {
         "hostname" : "ubuntu-server",
         "username" : "dev",
-        "password" : "password",
-        "iso_url" : "http://releases.ubuntu.com/14.04/ubuntu-14.04.3-server-amd64.iso",
-        "iso_checksum" : "9e5fecc94b3925bededed0fdca1bd417",
+        "password" : "secret",
+        "iso_url" : "http://releases.ubuntu.com/14.04/ubuntu-14.04.4-server-amd64.iso",
+        "iso_checksum" : "2ac1f3e0de626e54d05065d6f549fa3a",
         "preseed" : "preseed.cfg",
         "disksize" : "10000"
     },
@@ -18,13 +18,13 @@
             "iso_url" : "{{user `iso_url`}}",
             "iso_checksum" : "{{user `iso_checksum`}}",
             "iso_checksum_type" : "md5",
-            "http_directory" : "share",
+            "http_directory" : "{{template_dir}}/share",
             "http_port_min" : 9001,
             "http_port_max" : 9001,
             "ssh_username" : "{{user `username` }}",
             "ssh_password" : "{{user `password` }}",
             "ssh_timeout" : "20m",
-            "output_directory" : "builds/{{user `hostname`}}",
+            "output_directory" : "{{template_dir}}/builds",
             "vboxmanage" : [
                 [
                     "modifyvm",
@@ -45,7 +45,6 @@
                     "1"
                 ]
             ],
-            "shutdown_command" : "echo {{user `password`}} | sudo -S shutdown -P now",
             "boot_command" : [
                 "<esc><wait>",
                 "<esc><wait>",
@@ -64,16 +63,30 @@
                 "initrd=/install/initrd.gz ",
                 "-- ",
                 "<enter>"
-            ]
+            ],
+            "shutdown_command" : "echo {{user `password`}} | sudo -S shutdown -P now"
         }
     ],
     "provisioners" : [
+        {
+          "type": "shell",
+          "execute_command": "echo '{{user `password`}}' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+          "inline": [
+            "echo '%sudo    ALL=(ALL)  NOPASSWD:ALL' >> /etc/sudoers"
+          ]
+        },
+        {
+            "type" : "shell",
+            "scripts" : [
+                "{{template_dir}}/scripts/setup.sh"
+            ]
+        }
     ],
     "post-processors" : [
         [
             {
                 "type" : "vagrant",
-                "output" : "{{.BuildName}}_{{.Provider}}.box"
+                "output" : "{{template_dir}}/{{.BuildName}}_{{.Provider}}.box"
             }
         ]
     ]
