@@ -78,7 +78,9 @@
         {
             "type" : "shell",
             "scripts" : [
-                "{{template_dir}}/scripts/setup.sh"
+                "{{template_dir}}/scripts/install-basics.sh",
+                "{{template_dir}}/scripts/create-vagrant-user.sh",
+                "{{template_dir}}/scripts/prepare-chef.sh"
             ]
         }
     ],

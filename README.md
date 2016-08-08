@@ -25,3 +25,5 @@ http://engineering.cotap.com/post/78783269747/hello-world-using-packer-chef-and-
 http://www.erikaheidi.com/blog/a-begginers-guide-to-vagrant-getting-your-portable-development-e
 http://blog.endpoint.com/2014/03/provisioning-development-environment_14.html
 http://kvz.io/blog/2013/01/16/vagrant-tip-keep-virtualbox-guest-additions-in-sync/
+https://www.digitalocean.com/community/tutorials/how-to-install-chef-and-ruby-with-rvm-on-a-ubuntu-vps
+http://gettingstartedwithchef.com/first-steps-with-chef.html
