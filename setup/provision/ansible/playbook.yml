@@ -1,0 +1,13 @@
+---
+- hosts: all
+  sudo: yes
+  vars_files:
+    - vars/user.yml
+    - vars/nginx.yml
+    - vars/php.yml
+  roles:
+    -   { role: tersmitten.composer }
+    - { role: ANXS.generic-users }
+    - { role: geerlingguy.nginx }
+    #- { role: geerlingguy.php } <- Currently buggy, Preinstalling via shellscript
+    - { role: abaez.docker }

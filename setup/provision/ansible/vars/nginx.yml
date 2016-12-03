@@ -1,0 +1,19 @@
+---
+nginx_remove_default_vhost: true
+nginx_user: www
+nginx_vhosts:
+  -
+    server_name: dev.local
+    listen: "80 default_server"
+    root: /var/www/vhosts/dev.local/web
+    index: "app.php app_dev.php"
+    access_log: access
+    error_log: error
+    extra_parameters: |
+        location ~ \.php$ {
+            fastcgi_split_path_info ^(.+\.php)(/.+)$;
+            fastcgi_pass 127.0.0.1:9000;
+            fastcgi_index index.php;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            include fastcgi_params;
+        }

@@ -1,0 +1,13 @@
+---
+genericusers_groups:
+  -
+    name: www
+    system: true
+genericusers_users:
+  -
+    groups:
+      - www
+      - vagrant
+    name: www
+    ssh_keys: []
+    system: true
