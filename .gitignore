@@ -1,3 +1,4 @@
 /.idea
-/.vagrant
+/setup/.vagrant
 /**/*.box
+/setup/provision/ansible/roles
