@@ -17,3 +17,24 @@ nginx_vhosts:
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
             include fastcgi_params;
         }
+
+        location / {
+                try_files $uri @pass_to_symfony;
+        }
+
+        location ~ /app_dev.php/ {
+                try_files $uri @pass_to_symfony_dev;
+        }
+
+        location @pass_to_symfony{
+                rewrite ^ /app.php?$request_uri last;
+        }
+
+        location @pass_to_symfony_dev{
+                rewrite ^ /app_dev.php?$request_uri last;
+        }
+
+        location ~ ^/app(_dev)?\.php($|/) {
+                include fastcgi_params;
+                fastcgi_pass   127.0.0.1:9000;
+        }

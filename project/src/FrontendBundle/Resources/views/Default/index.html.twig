@@ -1,0 +1,8 @@
+{% extends 'FrontendBundle::layout.html.twig' %}
+{% block body %}
+    {{ render(controller('BackendBundle:Api:indexProjects'))|raw }}
+    <form action="{{ path('backend.projects.index') }}" method="post">
+        <input type="text" name="name" value="eventundreisen" hidden />
+        <input type="submit" />
+    </form>
+{% endblock body %}

@@ -1,0 +1,6 @@
+app_backend:
+    resource: "@BackendBundle/Resources/config/routing.xml"
+    type:     xml
+app_frontend:
+    resource: "@FrontendBundle/Resources/config/routing.xml"
+    type:     xml

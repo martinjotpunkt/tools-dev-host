@@ -3,18 +3,11 @@
 - Download the proper Packer version from https://www.packer.io/downloads.html
 - Download Virtualbox from https://www.virtualbox.org/wiki/Downloads
 - Download vagrant from https://www.vagrantup.com/downloads.html
-- Build machine via "packer build ubuntu-14.04-64.json"
+- Build machine via "packer build cetn-14.04-64.json"
 - Install vagrant Plugin "vagrant-vbguest via "vagrant plugin install vagrant-vbguest"
-- Add box to vagrant via "vagrant box add ubuntu-14.04-64 .\ubuntu-14.04.3-server-amd64_virtualbox.box" 
 
 ## ToDo
-- Vagrant
-- - [ ] Set up proper ssh
-- Chef Provisioning
-- - [ ] Install nginx
-- - [ ] Install Docker
-- - [ ] Install Git
-- - [ ] Install Adminer
+
 
 ##Docs
 http://blog.endpoint.com/2014/03/provisioning-development-environment.html
@@ -27,3 +20,5 @@ http://blog.endpoint.com/2014/03/provisioning-development-environment_14.html
 http://kvz.io/blog/2013/01/16/vagrant-tip-keep-virtualbox-guest-additions-in-sync/
 https://www.digitalocean.com/community/tutorials/how-to-install-chef-and-ruby-with-rvm-on-a-ubuntu-vps
 http://gettingstartedwithchef.com/first-steps-with-chef.html
+https://github.com/boxcutter/ubuntu/blob/master/ubuntu.json
+https://www.digitalocean.com/community/tutorials/how-to-run-nginx-in-a-docker-container-on-ubuntu-14-04

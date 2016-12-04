@@ -20,5 +20,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         ansible.playbook = "provision/ansible/playbook.yml"
     end
 
+    config.vm.provision "shell", path: "provision/shell/finish.sh"
+
     config.vm.synced_folder "../project", "/var/www/vhosts/dev.local", create: true
 end

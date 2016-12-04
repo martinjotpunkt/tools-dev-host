@@ -5,10 +5,15 @@ php_error_reporting: E_ALL
 php_webserver_daemon: nginx
 php_packages:
   - php
-  - php-cli
   - php-common
-  - php-devel
-  - php-mbstring
+  - php-cli
   - php-pdo
   - php-xml
   - php-json
+  - php-intl
+  - php-posix
+  - php-xdebug
+  - php-apcu
+  - php-memcache
+  - php-devel
+  - php-mbstring

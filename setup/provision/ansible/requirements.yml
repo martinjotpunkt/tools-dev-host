@@ -1,4 +1,3 @@
-- src: tersmitten.composer
 - src: ANXS.generic-users
 - src: geerlingguy.nginx
 - src: geerlingguy.php
