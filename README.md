@@ -3,8 +3,13 @@
 - Download the proper Packer version from https://www.packer.io/downloads.html
 - Download Virtualbox from https://www.virtualbox.org/wiki/Downloads
 - Download vagrant from https://www.vagrantup.com/downloads.html
-- Build machine via "packer build cetn-14.04-64.json"
+- Checkout packer  templates with "git clone git@github.com:boxcutter/centos.git centos"
+- Move to centos
+- Build machine via "packer build -var-file=centos71.json centos.json"
 - Install vagrant Plugin "vagrant-vbguest via "vagrant plugin install vagrant-vbguest"
+- Address generated box file in /setup/Vagrantfile
+- Move to /setup
+- Run "vagrant up"
 
 ## ToDo
 
