@@ -2,3 +2,4 @@
 
 sudo chown -R vagrant:www /var/www;
 sudo service php-fpm restart;
+sudo usermod -aG docker vagrant;
