@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<serializer>
+    <class name="AppBundle\Model\ProjectModel" exclusion-policy="ALL" read-only="false">
+        <property name="name" type="string" expose="true" since-version="1.0" />
+        <property name="path" type="string" expose="true" since-version="1.0" />
+        <property name="canBoot" type="boolean" expose="true" since-version="1.0" />
+        <!--<property name="canBoot" type="boolean" expose="true" since-version="1.0" />-->
+    </class>
+</serializer>

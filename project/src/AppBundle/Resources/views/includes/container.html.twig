@@ -1,0 +1,30 @@
+{% set ports = [] %}
+{% for port in container.ports %}
+    {% set map = port.privatePort %}
+    {% if port.publicPort is not empty %}
+        {% set map = map ~ '->' ~ port.publicPort %}
+    {% endif %}
+    {% set ports = ports|merge([map]) %}
+{% endfor %}
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <strong class="pull-left">{{ container.id|shortHash() }}</strong>
+        <span class="pull-right">{{ container.created|date('d.m.Y H:i') }}</span>
+    </div>
+    <div class="panel-body">
+        <ul class="list-group">
+            <li class="list-group-item">Names: {{ container.names|join(', ') }}</li>
+            <li class="list-group-item">State: {{ container.state }}</li>
+            <li class="list-group-item">Parent: {{ container.imageId|shortHash }}</li>
+            <li class="list-group-item">{{ ports|join(', ') }}</li>
+            {% for volume in container.mounts %}
+                <li class="list-group-item" title="{{ volume.name }}">{{ volume.source }}:{{ volume.destination }}</li>
+            {% endfor %}
+        </ul>
+        <div class="btn-group pull-right">
+            <form action="{{ path('app.container.kill', {'id' : container.id}) }}" method="get">
+                <button type="submit" class="btn btn-danger"title="Kill">Kill</button>
+            </form>
+        </div>
+    </div>
+</div>

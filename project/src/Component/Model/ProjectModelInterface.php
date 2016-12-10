@@ -1,6 +1,8 @@
 <?php
 namespace Component\Model;
 
+use Docker\Context\ContextInterface;
+
 interface ProjectModelInterface
 {
     /**
@@ -16,15 +18,7 @@ interface ProjectModelInterface
 
 
     /**
-     * @param $canBoot boolean
-     *
-     * @return string
+     * @return ContextInterface
      */
-    public function setCanBoot($canBoot);
-
-
-    /**
-     * @return boolean
-     */
-    public function getCanBoot();
+    public function getContext();
 }

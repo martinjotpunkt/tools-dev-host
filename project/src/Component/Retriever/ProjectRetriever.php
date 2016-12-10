@@ -1,12 +1,14 @@
 <?php
 namespace Component\Retriever;
 
-use BackendBundle\Model\ProjectModel;
+use AppBundle\Model\ProjectModel;
 use Component\Model\ProjectModelInterface;
+use Docker\Context\Context;
+use Docker\Context\ContextInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
-class ProjectRetriever implements ProjectRetrieverInterface
+class ProjectRetriever implements RetrieverInterface
 {
     const FILENAME_DOCKERFILE = 'Dockerfile';
 
@@ -86,27 +88,17 @@ class ProjectRetriever implements ProjectRetrieverInterface
      */
     private function createProjectFromFileInfo(SplFileInfo $info)
     {
-        $project = new ProjectModel($info->getBasename(), $info->getRealPath());
-
-        $project->setCanBoot($this->hasDockerfile($project));
-
-        return $project;
+        return new ProjectModel($info->getBasename(), $info->getRealPath(), $this->getDockerContext($info));
     }
 
 
     /**
-     * @param ProjectModelInterface $projectModel
+     * @param SplFileInfo $baseDir
      *
-     * @return bool
+     * @return ContextInterface
      */
-    private function hasDockerfile(ProjectModelInterface $projectModel)
+    private function getDockerContext(SplFileInfo $baseDir)
     {
-        $dockerPath = $projectModel->getPath() . $this->dockerDir;
-
-        if (!file_exists($dockerPath)) {
-            return false;
-        }
-
-        return 0 < $this->getFinder()->files()->in($dockerPath)->name(self::FILENAME_DOCKERFILE)->depth('== 0')->count();
+        return new Context($baseDir->getRealPath() . $this->dockerDir);
     }
 }
