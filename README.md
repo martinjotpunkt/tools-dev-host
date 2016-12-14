@@ -14,7 +14,7 @@
 ## ToDo
 
 
-##Docs
+## Docs
 http://blog.endpoint.com/2014/03/provisioning-development-environment.html
 https://github.com/thasmo/packer.templates
 https://github.com/shiguredo/packer-templates
@@ -27,3 +27,4 @@ https://www.digitalocean.com/community/tutorials/how-to-install-chef-and-ruby-wi
 http://gettingstartedwithchef.com/first-steps-with-chef.html
 https://github.com/boxcutter/ubuntu/blob/master/ubuntu.json
 https://www.digitalocean.com/community/tutorials/how-to-run-nginx-in-a-docker-container-on-ubuntu-14-04
+https://docs.docker.com/engine/reference/api/docker_remote_api_v1.24/

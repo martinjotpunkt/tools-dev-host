@@ -5,7 +5,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.box = "file://centos72-0.1.0.box"
     config.vm.host_name = "dev.local"
     config.vm.network "public_network", ip: "192.168.1.30"
-    config.vm.network "forwarded_port", guest: 80, host: 80
 
     config.vm.provider "virtualbox" do |vb|
         vb.customize ["modifyvm", :id, "--name", "dev.local"]
@@ -21,6 +20,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     config.vm.provision "shell", path: "provision/shell/finish.sh"
-
     config.vm.synced_folder "../project", "/var/www/vhosts/dev.local", create: true
 end
