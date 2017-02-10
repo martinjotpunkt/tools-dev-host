@@ -5,7 +5,7 @@
         <parameter key="dir.docker">/setup</parameter>
         <parameter key="app.config.host_name">dev.local</parameter>
         <parameter key="app.config.vhost_template">AppBundle:vhost:nginx.conf.twig</parameter>
-        <parameter key="app.config.vhost_config_dir">/var/www/bridges/</parameter>
+        <parameter key="app.config.vhost_config_dir">/var/www/bridges</parameter>
     </parameters>
     <services>
         <service id="app.extension.twig" class="AppBundle\Twig\AppExtension" public="false">

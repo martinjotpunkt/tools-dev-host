@@ -68,7 +68,7 @@ class NginxConfigAdapter implements WebServerConfigAdapterInterface
      */
     private function getFilePath($name)
     {
-        return sprintf('%s/%s.conf', $this->configDir, $name);
+        return sprintf('%s%s.conf', $this->configDir, $name);
     }
 }
 
