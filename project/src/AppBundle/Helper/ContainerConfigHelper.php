@@ -4,7 +4,7 @@ namespace AppBundle\Helper;
 use AppBundle\Model\VhostConfigModel;
 use AppBundle\Provider\ServerNameProviderInterface;
 use ArrayObject;
-use Component\Adapter\WebServerConfigAdapterInterface;
+use Component\Adapter\WebserverConfigAdapterInterface;
 use Component\Model\ProjectModelInterface;
 use Component\Model\VhostConfigInterface;
 use Docker\API\Model\Container;
@@ -162,9 +162,15 @@ class ContainerConfigHelper
     private function createVhostConfig(Container $container, ProjectModelInterface $project, array $public = [])
     {
         $config = new VhostConfigModel($this->nameProvider->getServerName($project->getName()));
-        $ports = array_filter(iterator_to_array($container->getNetworkSettings()->getPorts()->getIterator()), function($content) {
-            return is_array($content);
-        });
+        $ports = $container->getNetworkSettings()->getPorts();
+
+        if (!is_null($ports)) {
+            $ports = array_filter(iterator_to_array($ports->getIterator()), function($content) {
+                return is_array($content);
+            });
+        } else {
+            $ports = [];
+        }
 
         foreach ($ports as $exposed => $bindings) {
             if (in_array($exposed, $public)) {
