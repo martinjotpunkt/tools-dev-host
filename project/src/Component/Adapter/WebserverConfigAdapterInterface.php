@@ -4,7 +4,7 @@ namespace Component\Adapter;
 
 use Component\Model\VhostConfigInterface;
 
-interface WebServerConfigAdapterInterface
+interface WebserverConfigAdapterInterface
 {
     /**
      * @param VhostConfigInterface $model

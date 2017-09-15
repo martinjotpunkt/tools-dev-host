@@ -2,11 +2,11 @@
 
 namespace AppBundle\Adapter;
 
-use Component\Adapter\WebServerConfigAdapterInterface;
+use Component\Adapter\WebserverConfigAdapterInterface;
 use Component\Model\VhostConfigInterface;
 use Component\Renderer\ConfigRendererInterface;
 
-class NginxConfigAdapter implements WebServerConfigAdapterInterface
+class NginxConfigAdapter implements WebserverConfigAdapterInterface
 {
     /** @var string */
     private $configDir;

@@ -49,4 +49,25 @@ class ProjectModel implements ProjectModelInterface
     {
         return $this->context;
     }
+
+    public function delete()
+    {
+        $this->deleteRecursively($this->getPath());
+    }
+
+    private function deleteRecursively($dir) {
+       $files = array_diff(scandir($dir), ['.', '..']);
+
+        foreach ($files as $file) {
+            $path = $dir . '/' . $file;
+
+            if (is_dir($path)) {
+                $this->deleteRecursively($path);
+            } else {
+                unlink($path);
+            }
+        }
+
+        return rmdir($dir);
+      }
 }

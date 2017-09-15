@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ContainerController extends AbstractBaseController
 {
-
     /**
      * @param $name
      *
@@ -16,7 +15,8 @@ class ContainerController extends AbstractBaseController
     public function runAction($name)
     {
         $project = $this->getProjectOr404($name);
-        $this->getContainerConfigHelper()->run($project, ['80/tcp']);
+
+        $this->getContainerConfigHelper()->run($project, ['80/tcp', '3306/tcp']);
 
         return $this->redirect($this->getDashboardUrl());
     }
