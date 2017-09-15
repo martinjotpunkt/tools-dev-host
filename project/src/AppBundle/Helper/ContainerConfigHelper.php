@@ -54,10 +54,9 @@ class ContainerConfigHelper
         $container = $this->createContainer($image, $project, $expose);
 
         if ($container instanceof ContainerCreateResult) {
-            $this->startContainer($container);
+            $container = $this->startContainer($container);
         }
 
-        $container = $this->startContainer($container);
         $config = $this->createVhostConfig($container, $project, $expose);
 
         $this->extendConfiguration($config, $container->getName());
