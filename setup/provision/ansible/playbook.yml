@@ -6,7 +6,7 @@
     - vars/nginx.yml
     - vars/php.yml
   roles:
-    - { role: abaez.docker }
+    #- { role: abaez.docker }
     - { role: ANXS.generic-users }
     - { role: geerlingguy.nginx }
     #- { role: geerlingguy.php } <- Currently buggy, Preinstalling via shellscript

@@ -1,0 +1,13 @@
+{% for port in config.ports if '22/' not in port.guest %}
+server {
+    server_name {{ config.name }};
+        listen       {{ port.guest|replace({'/tcp' : '', '/udp' : ''}) }};
+        location / {
+            fastcgi_buffer_size 128k;
+            fastcgi_buffers 4 256k;
+            fastcgi_busy_buffers_size 256k;
+
+            proxy_pass http://127.0.0.1:{{ port.host }}$request_uri;
+        }
+}
+{% endfor %}

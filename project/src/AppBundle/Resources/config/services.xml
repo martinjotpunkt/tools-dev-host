@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="dir.project">/var/www/projects</parameter>
+        <parameter key="dir.docker">/setup</parameter>
+        <parameter key="app.config.host_name">dev.local</parameter>
+        <parameter key="app.config.vhost_template">AppBundle:vhost:nginx.conf.twig</parameter>
+        <parameter key="app.config.vhost_config_dir">/var/www/bridges</parameter>
+    </parameters>
+    <services>
+        <service id="app.extension.twig" class="AppBundle\Twig\AppExtension" public="false">
+            <tag name="twig.extension" />
+        </service>
+        <service id="app.provider.server_name" class="AppBundle\Provider\ServerNameProvider">
+            <argument type="string">%app.config.host_name%</argument>
+        </service>
+        <service id="app.renderer.config_webserver" class="Component\Renderer\TwigConfigRenderer">
+            <argument type="service" id="twig" />
+            <argument type="string">%app.config.vhost_template%</argument>
+        </service>
+        <service id="app.adapter.nginx" class="AppBundle\Adapter\NginxConfigAdapter">
+            <argument type="service" id="app.renderer.config_webserver"/>
+            <argument type="string">%app.config.vhost_config_dir%</argument>
+        </service>
+        <service id="app.helper.container" class="AppBundle\Helper\ContainerConfigHelper">
+            <argument type="service" id="app.docker" />
+            <argument type="service" id="app.adapter.nginx" />
+            <argument type="service" id="app.provider.server_name" />
+        </service>
+        <service id="app.retriever.project" class="Component\Retriever\ProjectRetriever">
+            <argument type="string">%dir.project%</argument>
+            <argument type="string">%dir.docker%</argument>
+        </service>
+        <service id="app.retriever.container" class="Component\Retriever\ContainerRetriever">
+            <argument type="service" id="app.docker" />
+        </service>
+        <service id="app.retriever.image" class="Component\Retriever\ImageRetriever">
+            <argument type="service" id="app.docker" />
+        </service>
+        <service id="app.docker" class="Docker\Docker" />
+    </services>
+</container>

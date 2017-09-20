@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <strong class="pull-left">{{ image.id|shortHash }}</strong>
+        <span class="pull-right">{{ image.created|date('d.m.Y H:i') }}</span>
+    </div>
+    <div class="panel-body">
+        <ul class="list-group">
+            {% for tag in image.repoTags %}
+                <li class="list-group-item">{{ tag }}</li>
+            {% endfor %}
+            <li class="list-group-item">{{ ((image.size / 1024  ) / 1024)|number_format(2) }} MB</li>
+        </ul>
+        <div class="btn-group pull-right">
+            <a href="{{ path('app.image.remove', {'id' : image.id}) }}" class="btn btn-danger" title="Remove">Remove</a>
+        </div>
+    </div>
+</div>
