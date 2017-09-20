@@ -21,4 +21,10 @@ interface ProjectModelInterface
      * @return ContextInterface
      */
     public function getContext();
+
+
+    /**
+    * @return bool
+    */
+    public function delete();
 }
