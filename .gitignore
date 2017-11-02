@@ -2,3 +2,6 @@
 /setup/.vagrant
 /**/*.box
 /setup/provision/ansible/roles
+/setup/.vagrant/
+/setup/provision/packer/CentOS-7-x86_64-DVD-1611.iso
+/setup/centos7-0.0.99.box

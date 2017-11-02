@@ -11,20 +11,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.provider "virtualbox" do |vb|
         vb.customize ["modifyvm", :id, "--name", "dev.local"]
-        vb.customize ["modifyvm", :id, "--memory", 4048]
+        vb.customize ["modifyvm", :id, "--memory", 4096]
     end
 
     config.vm.provision "shell", path: "provision/shell/setup.sh"
-
-    config.vm.provision "ansible_local" do |ansible|
-        ansible.verbose  = true
-        ansible.galaxy_role_file = "provision/ansible/requirements.yml"
-        ansible.playbook = "provision/ansible/playbook.yml"
-    end
-
-    config.vm.provision "file", source: "../project", destination: "/var/www/vhosts/dev.local"
-
-    config.vm.provision "shell", path: "provision/shell/finish.sh"
-
 
 end

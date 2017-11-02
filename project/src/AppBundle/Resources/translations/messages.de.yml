@@ -1,6 +1,0 @@
-api:
-    error:
-        project_not_found: 'Project %name% could not be found'
-        project_unbootable: 'Project %name% can not be booted'
-    success:
-        project_booted: 'Project %name% was booted successfully'
