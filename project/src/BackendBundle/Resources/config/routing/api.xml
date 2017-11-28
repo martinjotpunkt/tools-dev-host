@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<routes xmlns="http://symfony.com/schema/routing" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
-    <route id="backend.projects.index" path="/project" methods="GET">
-        <default key="_controller">BackendBundle:Api:indexProjects</default>
-    </route>
-    <route id="backend.projects.index" path="/project/boot" methods="POST">
-        <default key="_controller">BackendBundle:Api:bootProject</default>
-    </route>
-</routes>
