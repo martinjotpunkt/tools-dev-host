@@ -20,11 +20,6 @@ sudo chmod +x /usr/bin/docker-compose
 
 sudo chown -R vagrant:vagrant /var/projects
 
-sudo mv ~/devstart /usr/bin/devstart
-sudo chmod +x /usr/bin/devstart
-
-sudo echo "devstart" >> /etc/rc.d/rc.local
-
 # restarting services
 sudo systemctl restart docker
 
