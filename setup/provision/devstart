@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-docker start nginx
-docker start portainer
