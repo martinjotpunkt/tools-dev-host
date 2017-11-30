@@ -14,7 +14,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.customize ["modifyvm", :id, "--memory", 4096]
     end
 
-    config.vm.provision "file", source: "provision/devstart", destination: "~"
     config.vm.provision "shell", path: "provision/shell/setup.sh"
 
 end

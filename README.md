@@ -2,7 +2,7 @@
 1. Download Virtualbox from https://www.virtualbox.org/wiki/Downloads
 2. Download Vagrant from https://www.vagrantup.com/downloads.html
 3. Move this project to your desired destination
-4. Download `centos7-0.0.99.box` from the fileserver `BLG-FileServer2/98 - Entwicklungsumgebung/web/Dockersetup Nov 2017` and place it into the `provision` folder.
+4. Download `centos7-0.0.99.box` from the fileserver `BLG-FileServer2/98 - Entwicklungsumgebung/web/Dockersetup Nov 2017` and place it into the `setup` folder.
 4. Navigate via CLI into `setup`
 5. Execute `vagrant up`
 6. This might take a few minutes
