@@ -1,18 +1,31 @@
 #!/usr/bin/env bash
-sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm;
-sudo rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm;
-sudo yum install -y php70w-fpm php70w-opcache php70w-json php70w-xml php70w-pdo php70w-cli php70w-posix php70w-intl php70w-pecl-apcu.x86_64 php70w-pecl-xdebug.x86_64;
-mkdir /var/www/projects;
-mkdir /var/www/bridges;
-sudo yum update;
-sudo tee /etc/yum.repos.d/docker.repo <<-'EOF'
-[dockerrepo]
-name=Docker Repository
-baseurl=https://yum.dockerproject.org/repo/main/centos/7/
-enabled=1
-gpgcheck=1
-gpgkey=https://yum.dockerproject.org/gpg
-EOF
-sudo yum install -y docker-engine;
-sudo systemctl enable docker.service;
-sudo systemctl start docker;
+
+sudo mkdir -p /var/projects;
+
+# installing packages
+sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+sudo rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+sudo yum makecache
+sudo yum install -y nano yum-utils device-mapper-persistent-data lvm2
+
+# docker
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum install -y docker-ce
+sudo systemctl enable docker
+sudo systemctl start docker
+
+# docker compose
+sudo curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` -o /usr/bin/docker-compose
+sudo chmod +x /usr/bin/docker-compose
+
+sudo chown -R vagrant:vagrant /var/projects
+
+# restarting services
+sudo systemctl restart docker
+
+sudo docker run --detach --publish 80:80 --volume /var/run/docker.sock:/tmp/docker.sock:ro --name nginx_proxy jwilder/nginx-proxy
+sudo docker run --detach --publish 9000:9000 --volume /var/run/docker.sock:/var/run/docker.sock --volume /opt/portainer:/data --env VIRTUAL_HOST=portainer.local --name portainer portainer/portainer
+
+ifconfig
+
+echo "Everything done. Pick the IP from above and edit your hosts file. The domain portainer.local should point to the IP above."
