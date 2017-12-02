@@ -1,0 +1,13 @@
+{
+  "_comment": "Docker Setup BLG",
+  "vm_name": "centos7",
+  "cpus": "1",
+  "disk_size": "65536",
+  "http_directory": "kickstart/centos7",
+  "iso_checksum": "c018577c75b2434fbb2c324789dee0ba887d9c32",
+  "iso_checksum_type": "sha1",
+  "iso_name": "CentOS-7-x86_64-DVD-1611.iso",
+  "iso_url": "CentOS-7-x86_64-DVD-1611.iso",
+  "memory": "1024",
+  "parallels_guest_os_type": "centos7"
+}

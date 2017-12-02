@@ -2,23 +2,18 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-    config.vm.box = "file://centos72-0.1.0.box"
+    config.vm.box = "centos7-0.0.99.box"
     config.vm.host_name = "dev.local"
-    config.vm.network "public_network"
+    config.vm.network "public_network", use_dhcp_assigned_default_route: true
+
+    config.ssh.username = "vagrant"
+    config.ssh.password = "vagrant"
 
     config.vm.provider "virtualbox" do |vb|
         vb.customize ["modifyvm", :id, "--name", "dev.local"]
-        vb.customize ["modifyvm", :id, "--memory", 4048]
+        vb.customize ["modifyvm", :id, "--memory", 4096]
     end
 
     config.vm.provision "shell", path: "provision/shell/setup.sh"
 
-    config.vm.provision "ansible_local" do |ansible|
-        ansible.verbose  = true
-        ansible.galaxy_role_file = "provision/ansible/requirements.yml"
-        ansible.playbook = "provision/ansible/playbook.yml"
-    end
-
-    config.vm.provision "shell", path: "provision/shell/finish.sh"
-    config.vm.synced_folder "../project", "/var/www/vhosts/dev.local", create: true
 end
